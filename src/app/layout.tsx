@@ -3,6 +3,7 @@ import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import { Analytics } from '@vercel/analytics/next';
 
 const inter = Inter({ subsets: ["latin"] });
 const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair" });
@@ -38,6 +39,7 @@ export default function RootLayout({
         <Navbar />
         <WhatsAppButton />
         {children}
+        <Analytics />
       </body>
     </html>
   );
