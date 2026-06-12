@@ -44,6 +44,10 @@ export default function DifyChatbot() {
       const el = document.getElementById("dify-chatbot-bubble-window");
       const isOpen = el !== null && el.style.display !== "none";
 
+      if (el) {
+        el.classList.toggle("chat-fade-in", isOpen);
+      }
+
       window.__difyChatWin = isOpen ? el : null;
 
       if (isOpen) addListeners();
@@ -76,6 +80,26 @@ export default function DifyChatbot() {
         strategy="afterInteractive"
       />
       <style>{`
+        @keyframes chatFadeIn {
+          0% {
+            opacity: 0;
+            transform: translateY(16px) scale(0.96);
+          }
+          100% {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+          }
+        }
+
+        @keyframes chatter {
+          0%, 100% {
+            transform: scale(1);
+          }
+          50% {
+            transform: scale(1.08);
+          }
+        }
+
         #dify-chatbot-bubble-button {
           position: fixed !important;
           bottom: 100px !important;
@@ -85,19 +109,36 @@ export default function DifyChatbot() {
           border-radius: 50% !important;
           width: 60px !important;
           height: 60px !important;
-          box-shadow: 0 4px 12px rgba(0,0,0,0.2) !important;
+          box-shadow: 0 4px 14px rgba(0,0,0,0.25) !important;
+          transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+                      box-shadow 0.3s ease !important;
+          animation: chatter 3s ease-in-out infinite !important;
         }
+
+        #dify-chatbot-bubble-button:hover {
+          transform: scale(1.12) !important;
+          box-shadow: 0 6px 24px rgba(37, 99, 235, 0.4) !important;
+          animation: none !important;
+        }
+
         #dify-chatbot-bubble-button > div {
           display: none !important;
         }
+
         #dify-chatbot-bubble-window {
           position: fixed !important;
           bottom: 90px !important;
-          right: 90px !important;
+          right: 95px !important;
           z-index: 10000 !important;
           width: 24rem !important;
           height: 40rem !important;
+          opacity: 1;
         }
+
+        #dify-chatbot-bubble-window.chat-fade-in {
+          animation: chatFadeIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards !important;
+        }
+
         #dify-chatbot-bubble-root {
           position: static !important;
         }
