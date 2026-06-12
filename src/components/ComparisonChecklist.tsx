@@ -10,6 +10,7 @@ interface ChecklistItem {
   regular: boolean;
   deep: boolean;
   move: boolean;
+  addon?: boolean;
 }
 
 interface AreaCategory {
@@ -112,8 +113,8 @@ const CHECKLIST_DATA: AreaCategory[] = [
       { name: "Clean Baseboard Heaters & Vents", regular: false, deep: true, move: true },
       { name: "Lightly Dust Blinds", regular: false, deep: true, move: true },
       { name: "Inside Window Frames & Tracks Detail", regular: false, deep: true, move: true },
-      { name: "Carpet Steam Cleaning", regular: false, deep: false, move: false },
-      { name: "Tile & Grout Restoration Cleaning", regular: false, deep: false, move: false },
+      { name: "Carpet Steam Cleaning", regular: false, deep: false, move: false, addon: true },
+      { name: "Tile & Grout Restoration Cleaning", regular: false, deep: false, move: false, addon: true },
     ]
   },
   {
@@ -133,7 +134,7 @@ const CHECKLIST_DATA: AreaCategory[] = [
       { name: "Balcony Cleaning (Sweep, Vacuum & Mop)", regular: false, deep: true, move: true },
       { name: "Garage Floor Sweep & Cobweb Removal", regular: false, deep: false, move: false },
       { name: "Exterior Window Glass", regular: false, deep: false, move: false },
-      { name: "Wall Cleaning", regular: false, deep: false, move: false },
+      { name: "Wall Cleaning", regular: false, deep: false, move: false, addon: true },
     ]
   }
 ];
@@ -148,6 +149,10 @@ const CrossIcon = () => (
   <svg className="w-5 h-5 text-slate-300 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
   </svg>
+);
+
+const AddonIcon = () => (
+  <span className="text-amber-500 text-[11px] font-bold mx-auto block text-center leading-none">+$</span>
 );
 
 export default function ComparisonChecklist() {
@@ -212,15 +217,16 @@ export default function ComparisonChecklist() {
                   <tr key={iIdx} className="group hover:bg-white transition-colors">
                     <td className="py-4 pl-12 text-slate-600 font-medium border-b border-slate-100 group-hover:border-transparent transition-all">
                       {item.name}
+                      {item.addon && <span className="ml-2 text-[10px] text-amber-500 font-bold uppercase tracking-wider">Add-on</span>}
                     </td>
                     <td className="py-4 text-center border-b border-slate-100 group-hover:border-transparent">
-                      {item.regular ? <CheckIcon /> : <CrossIcon />}
+                      {item.addon ? <AddonIcon /> : item.regular ? <CheckIcon /> : <CrossIcon />}
                     </td>
                     <td className="py-4 text-center border-b border-slate-100 group-hover:border-transparent bg-blue-50/20 group-hover:bg-blue-50/50">
-                      {item.deep ? <CheckIcon /> : <CrossIcon />}
+                      {item.addon ? <AddonIcon /> : item.deep ? <CheckIcon /> : <CrossIcon />}
                     </td>
                     <td className="py-4 text-center border-b border-slate-100 group-hover:border-transparent pr-8">
-                      {item.move ? <CheckIcon /> : <CrossIcon />}
+                      {item.addon ? <AddonIcon /> : item.move ? <CheckIcon /> : <CrossIcon />}
                     </td>
                   </tr>
                 ))}
@@ -242,39 +248,46 @@ export default function ComparisonChecklist() {
                transition={{ duration: 0.3 }}
                className="space-y-10"
              >
-               {CHECKLIST_DATA.map((category, cIdx) => {
-                 const relevantItems = category.items.filter(i => i[activeTab]);
-                 if (relevantItems.length === 0) return null;
+                {CHECKLIST_DATA.map((category, cIdx) => {
+                  const relevantItems = category.items.filter(i => i.addon || i[activeTab]);
+                  if (relevantItems.length === 0) return null;
 
-                 return (
-                   <div key={cIdx}>
-                      <h3 className="text-xl font-bold text-slate-950 mb-6 flex items-center gap-3">
-                        <span className="w-1 h-6 bg-blue-600 rounded-full" />
-                        {category.title}
-                      </h3>
-                      <div className="bg-white rounded-[2rem] p-6 shadow-xl shadow-slate-200/50 border border-slate-100">
-                         <ul className="space-y-4">
-                            {category.items.map((item, iIdx) => (
-                              <li key={iIdx} className={`flex items-start gap-4 py-1.5 ${item[activeTab] ? "text-slate-900" : "text-slate-400 opacity-40 line-through"}`}>
-                                 <div className={`mt-0.5 flex-shrink-0 w-5 h-5 rounded-md flex items-center justify-center ${item[activeTab] ? "bg-blue-600 shadow-sm shadow-blue-200" : "bg-slate-100"}`}>
-                                    {item[activeTab] ? (
-                                      <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={4}>
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                                      </svg>
-                                    ) : (
-                                      <svg className="w-3 h-3 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                                      </svg>
-                                    )}
-                                 </div>
-                                 <span className="text-[15px] font-semibold leading-snug tracking-tight">{item.name}</span>
-                              </li>
-                            ))}
-                         </ul>
-                      </div>
-                   </div>
-                 );
-               })}
+                  return (
+                    <div key={cIdx}>
+                       <h3 className="text-xl font-bold text-slate-950 mb-6 flex items-center gap-3">
+                         <span className="w-1 h-6 bg-blue-600 rounded-full" />
+                         {category.title}
+                       </h3>
+                       <div className="bg-white rounded-[2rem] p-6 shadow-xl shadow-slate-200/50 border border-slate-100">
+                          <ul className="space-y-4">
+                             {category.items.map((item, iIdx) => {
+                               const isIncluded = item[activeTab];
+                               const isAddon = !!item.addon;
+                               if (!isIncluded && !isAddon) return null;
+                               return (
+                                 <li key={iIdx} className={`flex items-start gap-4 py-1.5 ${isIncluded ? "text-slate-900" : isAddon ? "text-amber-600" : "text-slate-400 opacity-40 line-through"}`}>
+                                    <div className={`mt-0.5 flex-shrink-0 w-5 h-5 rounded-md flex items-center justify-center ${isAddon ? "bg-amber-100" : isIncluded ? "bg-blue-600 shadow-sm shadow-blue-200" : "bg-slate-100"}`}>
+                                       {isAddon ? (
+                                         <span className="text-[10px] font-bold text-amber-600">+$</span>
+                                       ) : isIncluded ? (
+                                         <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={4}>
+                                           <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                                         </svg>
+                                       ) : (
+                                         <svg className="w-3 h-3 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                                           <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                         </svg>
+                                       )}
+                                    </div>
+                                    <span className="text-[15px] font-semibold leading-snug tracking-tight">{item.name}{isAddon ? <span className="ml-1.5 text-[10px] text-amber-500 font-bold uppercase tracking-wider">Add-on</span> : ""}</span>
+                                 </li>
+                               );
+                             })}
+                          </ul>
+                       </div>
+                    </div>
+                  );
+                })}
              </motion.div>
            </AnimatePresence>
         </div>
