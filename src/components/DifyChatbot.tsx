@@ -79,14 +79,21 @@ export default function DifyChatbot() {
         #dify-chatbot-bubble-button {
           position: fixed !important;
           bottom: 100px !important;
-          right: 20px !important;
+          right: 25px !important;
           z-index: 9999 !important;
-          background-color: #1D63FF !important;
+          background: url('/chatbot-icon.png') center/cover no-repeat !important;
+          border-radius: 50% !important;
+          width: 60px !important;
+          height: 60px !important;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.2) !important;
+        }
+        #dify-chatbot-bubble-button > div {
+          display: none !important;
         }
         #dify-chatbot-bubble-window {
           position: fixed !important;
           bottom: 90px !important;
-          right: 80px !important;
+          right: 90px !important;
           z-index: 10000 !important;
           width: 24rem !important;
           height: 40rem !important;
