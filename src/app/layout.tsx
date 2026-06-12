@@ -3,6 +3,7 @@ import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import DifyChatbot from "@/components/DifyChatbot";
 import LenisProvider from "@/components/LenisProvider";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -39,6 +40,7 @@ export default function RootLayout({
         <LenisProvider>
           <Navbar />
           <WhatsAppButton />
+          <DifyChatbot />
           {children}
         </LenisProvider>
       </body>
