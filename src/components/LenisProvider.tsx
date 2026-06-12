@@ -4,6 +4,12 @@ import { useEffect, useRef } from "react";
 import Lenis from "lenis";
 import "lenis/dist/lenis.css";
 
+declare global {
+  interface Window {
+    __difyChatWin: HTMLElement | null;
+  }
+}
+
 export default function LenisProvider({ children }: { children: React.ReactNode }) {
   const lenisRef = useRef<Lenis | null>(null);
 
@@ -15,6 +21,11 @@ export default function LenisProvider({ children }: { children: React.ReactNode 
       smoothWheel: true,
       wheelMultiplier: 1,
       touchMultiplier: 1.5,
+      prevent: (node) => {
+        const win = window.__difyChatWin;
+        if (!win) return false;
+        return win === node || win.contains(node);
+      },
     });
 
     lenisRef.current = lenis;
