@@ -163,8 +163,8 @@ export default function DifyChatbot() {
           }
 
           #dify-chatbot-bubble-button {
-            bottom: 72px !important;
-            right: 12px !important;
+            bottom: 88px !important;
+            right: 26px !important;
             width: 52px !important;
             height: 52px !important;
           }
