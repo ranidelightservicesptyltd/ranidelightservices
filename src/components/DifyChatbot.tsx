@@ -81,23 +81,13 @@ export default function DifyChatbot() {
       />
       <style>{`
         @keyframes chatFadeIn {
-          0% {
-            opacity: 0;
-            transform: translateY(16px) scale(0.96);
-          }
-          100% {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-          }
+          0% { opacity: 0; transform: translateY(16px) scale(0.96); }
+          100% { opacity: 1; transform: translateY(0) scale(1); }
         }
 
         @keyframes chatter {
-          0%, 100% {
-            transform: scale(1);
-          }
-          50% {
-            transform: scale(1.08);
-          }
+          0%, 100% { transform: scale(1); }
+          50% { transform: scale(1.08); }
         }
 
         #dify-chatbot-bubble-button {
@@ -131,8 +121,11 @@ export default function DifyChatbot() {
           right: 95px !important;
           z-index: 10000 !important;
           width: 24rem !important;
+          max-width: calc(100vw - 7.5rem) !important;
           height: 40rem !important;
-          opacity: 1;
+          max-height: calc(100vh - 120px) !important;
+          border-radius: 1rem !important;
+          overscroll-behavior: contain !important;
         }
 
         #dify-chatbot-bubble-window.chat-fade-in {
@@ -141,6 +134,62 @@ export default function DifyChatbot() {
 
         #dify-chatbot-bubble-root {
           position: static !important;
+        }
+
+        @media (max-width: 640px) {
+          #dify-chatbot-bubble-button {
+            bottom: 80px !important;
+            right: 16px !important;
+            width: 56px !important;
+            height: 56px !important;
+          }
+
+          #dify-chatbot-bubble-window {
+            bottom: 12px !important;
+            right: 8px !important;
+            left: 8px !important;
+            width: auto !important;
+            max-width: none !important;
+            height: calc(100vh - 100px) !important;
+            max-height: calc(100vh - 100px) !important;
+            border-radius: 0.75rem !important;
+          }
+        }
+
+        @media (max-width: 480px) {
+          #dify-chatbot-bubble-window {
+            height: calc(100vh - 95px) !important;
+            max-height: calc(100vh - 95px) !important;
+          }
+
+          #dify-chatbot-bubble-button {
+            bottom: 72px !important;
+            right: 12px !important;
+            width: 52px !important;
+            height: 52px !important;
+          }
+        }
+
+        @media (max-width: 640px) and (orientation: landscape) {
+          #dify-chatbot-bubble-window {
+            height: calc(100vh - 100px) !important;
+            max-height: calc(100vh - 100px) !important;
+            border-radius: 0.5rem !important;
+          }
+
+          #dify-chatbot-bubble-button {
+            bottom: 16px !important;
+            right: 16px !important;
+            width: 48px !important;
+            height: 48px !important;
+          }
+        }
+
+        @media (min-width: 641px) and (max-width: 1024px) {
+          #dify-chatbot-bubble-window {
+            width: 22rem !important;
+            height: 35rem !important;
+          }
         }
       `}</style>
     </>
