@@ -10,6 +10,7 @@ interface ChecklistItem {
   regular: boolean;
   deep: boolean;
   move: boolean;
+  addon?: boolean;
 }
 
 interface AreaCategory {
@@ -19,90 +20,121 @@ interface AreaCategory {
 
 const CHECKLIST_DATA: AreaCategory[] = [
   {
-    title: "All General Areas",
-    items: [
-      { name: "Light Tidy Up", regular: true, deep: true, move: true },
-      { name: "Cobweb Removal", regular: true, deep: true, move: true },
-      { name: "Empty Bins", regular: true, deep: true, move: true },
-      { name: "Dust Skirting Boards / Sills / Doors", regular: true, deep: true, move: true },
-      { name: "Clean Light Switches / Power Points", regular: true, deep: true, move: true },
-      { name: "Dust All Reachable Surfaces", regular: true, deep: true, move: true },
-      { name: "Dust / Clean Mirrors", regular: true, deep: true, move: true },
-      { name: "Air Freshen / Deodorise (Optional)", regular: true, deep: true, move: true },
-      { name: "Dust Ceiling Fans", regular: true, deep: true, move: true },
-      { name: "Vacuum / Clean Soft Furnishing", regular: true, deep: true, move: false },
-      { name: "Vacuum Under Accessible Furniture", regular: true, deep: true, move: false },
-      { name: "Wipe Skirting Boards / Sills / Doors", regular: false, deep: true, move: true },
-      { name: "Lightly Dust Blinds", regular: false, deep: true, move: true },
-      { name: "Vacuum / Wipe Window Tracks", regular: false, deep: true, move: true },
-      { name: "Balcony Cleaning (Mop & Vacuum)", regular: false, deep: true, move: true },
-      { name: "Extensive Tidy Up", regular: false, deep: true, move: false },
-      { name: "Inside All Drawers / Cabinets", regular: false, deep: false, move: true },
-      { name: "Inside Windows", regular: false, deep: false, move: true },
-      { name: "Detail Doors / Door Frames", regular: false, deep: false, move: true },
-    ]
-  },
-  {
     title: "Kitchen",
     items: [
-      { name: "Clean Stovetop", regular: true, deep: true, move: true },
-      { name: "Clean Rangehood (Exterior)", regular: true, deep: true, move: true },
-      { name: "Clean / Wipe All Bench Tops", regular: true, deep: true, move: true },
+      { name: "Clean Benchtops, Countertops & Splashbacks", regular: true, deep: true, move: true },
+      { name: "Clean Sink, Drain & Tapware", regular: true, deep: true, move: true },
+      { name: "Clean Stovetop & Cooktop", regular: true, deep: true, move: true },
+      { name: "Clean Rangehood Exterior", regular: false, deep: true, move: true },
+      { name: "Degrease Burners & Control Knobs", regular: false, deep: true, move: true },
+      { name: "Clean Microwave", regular: false, deep: true, move: true },
       { name: "Clean Visible Appliances (Exterior)", regular: true, deep: true, move: true },
-      { name: "Clean Splash Back", regular: true, deep: true, move: true },
-      { name: "Clean / Polish Tapware", regular: true, deep: true, move: true },
-      { name: "Scrub / Clean Sink", regular: true, deep: true, move: true },
-      { name: "Clean Inside/Outside Microwave", regular: true, deep: true, move: true },
-      { name: "Clean Cupboards (Exterior)", regular: true, deep: true, move: true },
-      { name: "Polish Stainless Steel Surfaces", regular: true, deep: true, move: true },
-      { name: "Pantry Cleaning", regular: true, deep: true, move: true },
+      { name: "Clean Dishwasher Exterior", regular: true, deep: true, move: true },
+      { name: "Clean Dishwasher Interior & Filter", regular: false, deep: true, move: true },
+      { name: "Clean Cupboard & Cabinet Exteriors", regular: true, deep: true, move: true },
       { name: "Dust Cabinet Doors", regular: true, deep: true, move: true },
+      { name: "Pantry Cleaning", regular: false, deep: true, move: true },
+      { name: "Polish Stainless Steel Surfaces", regular: false, deep: true, move: true },
       { name: "Clean Underside of Rangehood", regular: false, deep: true, move: true },
-      { name: "Clean Exhaust Fans / Filters", regular: false, deep: false, move: true },
-      { name: "Inside Dishwasher Wipe Down", regular: false, deep: false, move: true },
-      { name: "Inside Oven", regular: false, deep: false, move: true },
-      { name: "Inside All Drawers / Cabinets", regular: false, deep: false, move: true },
+      { name: "Clean Exhaust Fans & Filters", regular: false, deep: true, move: true },
+      { name: "Clean Oven Interior & Racks", regular: false, deep: false, move: true },
+      { name: "Clean Inside Cupboards, Cabinets & Drawers (Must Be Empty)", regular: false, deep: true, move: true },
+      { name: "Clean Refrigerator (Fridge)", regular: false, deep: false, move: false },
     ]
   },
   {
-    title: "Bathrooms",
+    title: "Bathrooms & Toilets",
     items: [
-      { name: "Scrub / Clean Bath & Shower", regular: true, deep: true, move: true },
-      { name: "Scrub / Clean Sinks", regular: true, deep: true, move: true },
-      { name: "Scrub / Clean Toilets (Base & Behind)", regular: true, deep: true, move: true },
-      { name: "Wipe Down Benches & Mirrors", regular: true, deep: true, move: true },
-      { name: "Clean / Polish Tapware & Chrome", regular: true, deep: true, move: true },
-      { name: "Wipe Down Cupboards (Exterior)", regular: true, deep: true, move: true },
-      { name: "Scrub Shower Wall Tiles & Grout", regular: false, deep: true, move: true },
-      { name: "Clean Ceiling Exhaust Fans", regular: false, deep: false, move: true },
-      { name: "Inside All Drawers / Cabinets", regular: false, deep: false, move: true },
-      { name: "Inside Windows", regular: false, deep: false, move: true },
+      { name: "Clean Showers & Bathtubs", regular: true, deep: true, move: true },
+      { name: "Clean Shower Screens & Glass", regular: true, deep: true, move: true },
+      { name: "Scrub & Clean Sinks", regular: true, deep: true, move: true },
+      { name: "Clean Vanity Units", regular: true, deep: true, move: true },
+      { name: "Polish Tapware & Chrome Fixtures", regular: true, deep: true, move: true },
+      { name: "Clean Toilets (Including Base & Behind)", regular: true, deep: true, move: true },
+      { name: "Clean Mirrors", regular: true, deep: true, move: true },
+      { name: "Clean Medicine Cabinets Exterior", regular: true, deep: true, move: true },
+      { name: "Clean Cupboard Exteriors", regular: true, deep: true, move: true },
+      { name: "Scrub Wall Tiles & Grout", regular: false, deep: true, move: true },
+      { name: "Mould & Mildew Treatment", regular: false, deep: true, move: true },
+      { name: "Clean Ceiling Exhaust Fans", regular: false, deep: true, move: true },
+      { name: "Clean Inside Cabinets & Drawers", regular: false, deep: true, move: true },
+      { name: "Clean Inside Windows", regular: false, deep: false, move: true },
     ]
   },
   {
-    title: "Laundry Room",
+    title: "Laundry",
     items: [
-      { name: "Vacuum / Mop All Accessible Floors", regular: true, deep: true, move: true },
-      { name: "Cupboards (Exterior)", regular: true, deep: true, move: true },
-      { name: "Dryer (Exterior)", regular: true, deep: true, move: true },
-      { name: "Washing Machines (Exterior)", regular: true, deep: true, move: true },
-      { name: "Inside Cupboards", regular: false, deep: false, move: true },
-      { name: "Inside Dryer", regular: false, deep: false, move: true },
+      { name: "Vacuum & Mop Floors", regular: true, deep: true, move: true },
+      { name: "Clean Laundry Trough", regular: true, deep: true, move: true },
+      { name: "Clean Taps & Fixtures", regular: true, deep: true, move: true },
+      { name: "Clean Cupboard Exteriors", regular: true, deep: true, move: true },
+      { name: "Clean Washing Machine Exterior", regular: false, deep: true, move: true },
+      { name: "Clean Dryer Exterior", regular: false, deep: true, move: true },
+      { name: "Clean Inside Cupboards", regular: false, deep: true, move: true },
+      { name: "Clean Inside Dryer", regular: false, deep: false, move: true },
     ]
   },
   {
-    title: "Bedrooms & Living",
+    title: "Bedrooms & Living Areas",
     items: [
-      { name: "Dust / Wipe All Surfaces", regular: true, deep: true, move: true },
-      { name: "Make Beds", regular: true, deep: true, move: false },
-      { name: "Inside All Drawers / Cabinets", regular: false, deep: false, move: true },
-      { name: "Inside Windows", regular: false, deep: false, move: true },
+      { name: "Dust All Reachable Surfaces", regular: true, deep: true, move: true },
+      { name: "Dust Furniture & Decorations", regular: true, deep: true, move: false },
+      { name: "Dust Electronic Displays", regular: true, deep: true, move: false },
+      { name: "Dust & Clean Mirrors / Glass", regular: true, deep: true, move: true },
+      { name: "Clean Built-In Wardrobe Exteriors", regular: true, deep: true, move: true },
+      { name: "Clean Built-In Wardrobe Interiors", regular: false, deep: false, move: true },
+      { name: "Clean Wardrobe Tracks & Rails", regular: false, deep: true, move: true },
+      { name: "Dust Ceiling Fans", regular: false, deep: true, move: true },
+      { name: "Clean Light Fixtures", regular: false, deep: true, move: true },
+      { name: "Clean AC Vents & Filters", regular: false, deep: true, move: true },
+      { name: "Clean Light Switches & Power Points", regular: false, deep: true, move: true },
+      { name: "Spot Clean Wall Marks", regular: false, deep: false, move: true },
+      { name: "Full Wall Washing", regular: false, deep: false, move: false },
+      { name: "Make Beds", regular: false, deep: true, move: false },
+      { name: "Vacuum Soft Furnishings", regular: true, deep: true, move: false },
+      { name: "Vacuum Under Accessible Furniture", regular: true, deep: true, move: false },
+      { name: "Clean Inside Drawers & Cabinets", regular: false, deep: true, move: true },
+      { name: "Detail Clean Doors & Door Frames", regular: false, deep: false, move: true },
     ]
   },
   {
-    title: "Floors",
+    title: "Floors, Windows & Entryways",
     items: [
-      { name: "Vacuum / Mop All Accessible Floors", regular: true, deep: true, move: true },
+      { name: "Vacuum Carpets", regular: true, deep: true, move: true },
+      { name: "Detailed Edge-to-Edge Carpet Vacuuming", regular: false, deep: true, move: true },
+      { name: "Sweep & Mop Hard Floors", regular: true, deep: true, move: true },
+      { name: "Double Mop / Finish Treatment", regular: false, deep: true, move: true },
+      { name: "Dust Skirting Boards", regular: false, deep: true, move: true },
+      { name: "Wipe Skirting Boards", regular: false, deep: true, move: true },
+      { name: "Clean Internal Windows", regular: false, deep: true, move: true },
+      { name: "Clean Window Sills", regular: false, deep: true, move: true },
+      { name: "Vacuum / Clean Window Tracks", regular: false, deep: true, move: true },
+      { name: "Clean Sliding Door Tracks", regular: false, deep: true, move: true },
+      { name: "Clean Baseboard Heaters & Vents", regular: false, deep: true, move: true },
+      { name: "Lightly Dust Blinds", regular: false, deep: true, move: true },
+      { name: "Inside Window Frames & Tracks Detail", regular: false, deep: true, move: true },
+      { name: "Carpet Steam Cleaning", regular: false, deep: false, move: false, addon: true },
+      { name: "Tile & Grout Restoration Cleaning", regular: false, deep: false, move: false, addon: true },
+    ]
+  },
+  {
+    title: "General House Tasks",
+    items: [
+      { name: "Tidy Rooms", regular: true, deep: true, move: true },
+      { name: "Extensive Tidy Up", regular: false, deep: false, move: true },
+      { name: "Empty Bins / Trash", regular: true, deep: true, move: false },
+      { name: "Cobweb Removal", regular: false, deep: true, move: true },
+      { name: "Air Freshen / Deodorise", regular: true, deep: true, move: true },
+      { name: "Dust High Reach Areas", regular: false, deep: true, move: true },
+    ]
+  },
+  {
+    title: "Outdoor / Exterior Areas",
+    items: [
+      { name: "Balcony Cleaning (Sweep, Vacuum & Mop)", regular: false, deep: true, move: true },
+      { name: "Garage Floor Sweep & Cobweb Removal", regular: false, deep: false, move: false },
+      { name: "Exterior Window Glass", regular: false, deep: false, move: false },
+      { name: "Wall Cleaning", regular: false, deep: false, move: false, addon: true },
     ]
   }
 ];
@@ -117,6 +149,10 @@ const CrossIcon = () => (
   <svg className="w-5 h-5 text-slate-300 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
   </svg>
+);
+
+const AddonIcon = () => (
+  <span className="text-amber-500 text-[11px] font-bold mx-auto block text-center leading-none">+$</span>
 );
 
 export default function ComparisonChecklist() {
@@ -144,7 +180,7 @@ export default function ComparisonChecklist() {
                 activeTab === tab ? "text-white" : "text-slate-500"
               }`}
             >
-              <span className="relative z-10">{tab.replace("move", "Move Out")}</span>
+              <span className="relative z-10">{tab === "regular" ? "Regular" : tab === "deep" ? "Deep Clean" : "End of Lease"}</span>
               {activeTab === tab && (
                 <motion.div
                   layoutId="mobileTab"
@@ -172,24 +208,25 @@ export default function ComparisonChecklist() {
                 </tr>
                 {/* Column Labels for this Section */}
                 <tr className="text-left font-bold text-[10px] uppercase tracking-[0.2em] text-slate-400">
-                  <th className="pt-8 pb-4 pl-12">Items Included</th>
+                  <th className="pt-8 pb-4 pl-12">Task</th>
                   <th className="pt-8 pb-4 text-center">Regular</th>
-                  <th className="pt-8 pb-4 text-center text-blue-600/60">Deep Spring</th>
-                  <th className="pt-8 pb-4 text-center pr-8">Move In/Out</th>
+                  <th className="pt-8 pb-4 text-center text-blue-600/60">Deep Clean</th>
+                  <th className="pt-8 pb-4 text-center pr-8">End of Lease</th>
                 </tr>
                 {category.items.map((item, iIdx) => (
                   <tr key={iIdx} className="group hover:bg-white transition-colors">
                     <td className="py-4 pl-12 text-slate-600 font-medium border-b border-slate-100 group-hover:border-transparent transition-all">
                       {item.name}
+                      {item.addon && <span className="ml-2 text-[10px] text-amber-500 font-bold uppercase tracking-wider">Add-on</span>}
                     </td>
                     <td className="py-4 text-center border-b border-slate-100 group-hover:border-transparent">
-                      {item.regular ? <CheckIcon /> : <CrossIcon />}
+                      {item.addon ? <AddonIcon /> : item.regular ? <CheckIcon /> : <CrossIcon />}
                     </td>
                     <td className="py-4 text-center border-b border-slate-100 group-hover:border-transparent bg-blue-50/20 group-hover:bg-blue-50/50">
-                      {item.deep ? <CheckIcon /> : <CrossIcon />}
+                      {item.addon ? <AddonIcon /> : item.deep ? <CheckIcon /> : <CrossIcon />}
                     </td>
                     <td className="py-4 text-center border-b border-slate-100 group-hover:border-transparent pr-8">
-                      {item.move ? <CheckIcon /> : <CrossIcon />}
+                      {item.addon ? <AddonIcon /> : item.move ? <CheckIcon /> : <CrossIcon />}
                     </td>
                   </tr>
                 ))}
@@ -211,39 +248,46 @@ export default function ComparisonChecklist() {
                transition={{ duration: 0.3 }}
                className="space-y-10"
              >
-               {CHECKLIST_DATA.map((category, cIdx) => {
-                 const relevantItems = category.items.filter(i => i[activeTab]);
-                 if (relevantItems.length === 0) return null;
+                {CHECKLIST_DATA.map((category, cIdx) => {
+                  const relevantItems = category.items.filter(i => i.addon || i[activeTab]);
+                  if (relevantItems.length === 0) return null;
 
-                 return (
-                   <div key={cIdx}>
-                      <h3 className="text-xl font-bold text-slate-950 mb-6 flex items-center gap-3">
-                        <span className="w-1 h-6 bg-blue-600 rounded-full" />
-                        {category.title}
-                      </h3>
-                      <div className="bg-white rounded-[2rem] p-6 shadow-xl shadow-slate-200/50 border border-slate-100">
-                         <ul className="space-y-4">
-                            {category.items.map((item, iIdx) => (
-                              <li key={iIdx} className={`flex items-start gap-4 py-1.5 ${item[activeTab] ? "text-slate-900" : "text-slate-400 opacity-40 line-through"}`}>
-                                 <div className={`mt-0.5 flex-shrink-0 w-5 h-5 rounded-md flex items-center justify-center ${item[activeTab] ? "bg-blue-600 shadow-sm shadow-blue-200" : "bg-slate-100"}`}>
-                                    {item[activeTab] ? (
-                                      <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={4}>
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                                      </svg>
-                                    ) : (
-                                      <svg className="w-3 h-3 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                                      </svg>
-                                    )}
-                                 </div>
-                                 <span className="text-[15px] font-semibold leading-snug tracking-tight">{item.name}</span>
-                              </li>
-                            ))}
-                         </ul>
-                      </div>
-                   </div>
-                 );
-               })}
+                  return (
+                    <div key={cIdx}>
+                       <h3 className="text-xl font-bold text-slate-950 mb-6 flex items-center gap-3">
+                         <span className="w-1 h-6 bg-blue-600 rounded-full" />
+                         {category.title}
+                       </h3>
+                       <div className="bg-white rounded-[2rem] p-6 shadow-xl shadow-slate-200/50 border border-slate-100">
+                          <ul className="space-y-4">
+                             {category.items.map((item, iIdx) => {
+                               const isIncluded = item[activeTab];
+                               const isAddon = !!item.addon;
+                               if (!isIncluded && !isAddon) return null;
+                               return (
+                                 <li key={iIdx} className={`flex items-start gap-4 py-1.5 ${isIncluded ? "text-slate-900" : isAddon ? "text-amber-600" : "text-slate-400 opacity-40 line-through"}`}>
+                                    <div className={`mt-0.5 flex-shrink-0 w-5 h-5 rounded-md flex items-center justify-center ${isAddon ? "bg-amber-100" : isIncluded ? "bg-blue-600 shadow-sm shadow-blue-200" : "bg-slate-100"}`}>
+                                       {isAddon ? (
+                                         <span className="text-[10px] font-bold text-amber-600">+$</span>
+                                       ) : isIncluded ? (
+                                         <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={4}>
+                                           <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                                         </svg>
+                                       ) : (
+                                         <svg className="w-3 h-3 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                                           <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                         </svg>
+                                       )}
+                                    </div>
+                                    <span className="text-[15px] font-semibold leading-snug tracking-tight">{item.name}{isAddon ? <span className="ml-1.5 text-[10px] text-amber-500 font-bold uppercase tracking-wider">Add-on</span> : ""}</span>
+                                 </li>
+                               );
+                             })}
+                          </ul>
+                       </div>
+                    </div>
+                  );
+                })}
              </motion.div>
            </AnimatePresence>
         </div>
