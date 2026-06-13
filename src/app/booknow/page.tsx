@@ -386,7 +386,7 @@ export default function BookNowPage() {
                     animate={{ opacity: 1, y: 0 }}
                     className="bg-green-50 border border-green-200 text-green-700 rounded-xl px-6 py-4 text-center text-[15px] font-medium"
                   >
-                    ✅ Booking request sent successfully! We will contact you soon.
+                     Booking request sent successfully! We will contact you soon.
                   </motion.div>
                 )}
                 {result === "error" && (
@@ -395,7 +395,7 @@ export default function BookNowPage() {
                     animate={{ opacity: 1, y: 0 }}
                     className="bg-red-50 border border-red-200 text-red-600 rounded-xl px-6 py-4 text-center text-[15px] font-medium"
                   >
-                    ❌ Something went wrong. Please try again or contact us on WhatsApp.
+                     Something went wrong. Please try again or contact us on WhatsApp.
                   </motion.div>
                 )}
               </div>
