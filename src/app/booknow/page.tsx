@@ -26,6 +26,21 @@ const PROPERTY_SIZES = [
   "Other",
 ];
 
+const TIME_SLOTS = [
+  "7:00 AM",
+  "8:00 AM",
+  "9:00 AM",
+  "10:00 AM",
+  "11:00 AM",
+  "12:00 PM",
+  "1:00 PM",
+  "2:00 PM",
+  "3:00 PM",
+  "4:00 PM",
+  "5:00 PM",
+  "6:00 PM",
+];
+
 // ─── Trust badges ──────────────────────────────────────────────
 const TRUST_ITEMS = [
   { icon: "✔", text: "Trusted by 100+ clients" },
@@ -278,12 +293,21 @@ export default function BookNowPage() {
                   <label htmlFor="time" className={labelBase}>
                     Preferred Time
                   </label>
-                  <input
+                  <select
                     id="time"
                     name="time"
-                    type="time"
-                    className={inputBase}
-                  />
+                    className={`${inputBase} appearance-none bg-[url('data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2012%2012%22%3E%3Cpath%20fill%3D%22%2394a3b8%22%20d%3D%22M6%208L1%203h10z%22%2F%3E%3C%2Fsvg%3E')] bg-no-repeat bg-[right_1rem_center]`}
+                    defaultValue=""
+                  >
+                    <option value="" disabled>
+                      Select time
+                    </option>
+                    {TIME_SLOTS.map((s) => (
+                      <option key={s} value={s}>
+                        {s}
+                      </option>
+                    ))}
+                  </select>
                 </motion.div>
               </div>
 
